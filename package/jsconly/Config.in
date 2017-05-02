@@ -1,0 +1,6 @@
+
+config BR2_PACKAGE_JSC
+	bool "jsc"
+	help
+	  Just the standalone jsc interpreter from the WebKit project.
+	  https://webkit.org/

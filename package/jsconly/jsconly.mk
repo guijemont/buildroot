@@ -37,15 +37,19 @@ define JSCONLY_BUILD_CMDS
 endef
 
 define JSCONLY_INSTALL_STAGING_CMDS
-	cp -d $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so* $(STAGING_DIR)/usr/lib/
 	$(INSTALL) -D -m 0755 $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/bin/jsc $(STAGING_DIR)/usr/bin/jsc
+	if [ -e $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so ]; then \
+	  cp -d $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so* $(STAGING_DIR)/usr/lib/ ; \
+	fi
 endef
 
 define JSCONLY_INSTALL_TARGET_CMDS
-	cp -d $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so* $(TARGET_DIR)/usr/lib/
 	$(INSTALL) -D -m 0755 $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/bin/jsc $(TARGET_DIR)/usr/bin/jsc
-	$(STRIPCMD) $(TARGET_DIR)/usr/lib/libJavaScriptCore.so.1.0.*
 	$(STRIPCMD) $(TARGET_DIR)/usr/bin/jsc
+	if [ -e $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so ]; then \
+	  cp -d $(@D)/WebKitBuild/$(JSCONLY_BUILD_DIR_NAME)/lib/libJavaScriptCore.so* $(TARGET_DIR)/usr/lib/ ; \
+	  $(STRIPCMD) $(TARGET_DIR)/usr/lib/libJavaScriptCore.so.1.0.* ; \
+	fi
 endef
 
 
